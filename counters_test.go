@@ -17,51 +17,10 @@ package mon
 //
 import "testing"
 
-// Run through the test. Unless there are error messages in the test the counter
-// will be available in the application
 func TestCounterIncrement(t *testing.T) {
-	GatewayCreated.Increment()
-	GatewayUpdated.Increment()
-	GatewayRemoved.Increment()
-	ApplicationCreated.Increment()
-	ApplicationUpdated.Increment()
-	ApplicationRemoved.Increment()
-	DeviceCreated.Increment()
-	DeviceUpdated.Increment()
-	DeviceRemoved.Increment()
-	LoRaMICFailed.Increment()
-	LoRaConfirmedUp.Increment()
-	LoRaConfirmedDown.Increment()
-	LoRaUnconfirmedUp.Increment()
-	LoRaUnconfirmedDown.Increment()
-	LoRaJoinRequest.Increment()
-	LoRaJoinAccept.Increment()
-	LoRaCounterFailed.Increment()
-	GatewayIn.Increment()
-	GatewayOut.Increment()
-	Decoder.Increment()
-	Decrypter.Increment()
-	MACProcessor.Increment()
-	SchedulerIn.Increment()
-	SchedulerOut.Increment()
-	Encoder.Increment()
+	created := newTimeseriesCounter("createcounter")
+	hist := newHistogramCounter("histcounter")
 
-	GatewayChannelOut.Add(1.0)
-	DecoderChannelOut.Add(1.0)
-	DecrypterChannelOut.Add(1.0)
-	MACProcessorChannelOut.Add(1.0)
-	SchedulerChannelOut.Add(1.0)
-	EncoderChannelOut.Add(1.0)
-
-	TimeGatewaySend.Add(2.0)
-	TimeGatewayReceive.Add(2.0)
-	TimeDecoder.Add(2.0)
-	TimeDecrypter.Add(2.0)
-	TimeEncoder.Add(2.0)
-	TimeMACProcessor.Add(2.0)
-	TimeSchedulerSend.Add(2.0)
-	TimeSchedulerProcess.Add(2.0)
-
-	TimeIncoming.Add(3.0)
-	TimeOutgoing.Add(3.0)
+	created.Increment()
+	hist.Add(1.0)
 }

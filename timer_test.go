@@ -18,18 +18,20 @@ package mon
 import "testing"
 
 func TestTimer(t *testing.T) {
+	time1 := newHistogramCounter("time.1")
+	time2 := newHistogramCounter("time.2")
 	tk := NewTimer()
 
-	tk.Begin(TimeEncoder)
+	tk.Begin(time1)
 	tk.End()
 
 	tk.Begin(nil)
 
-	tk.Begin(TimeDecoder)
+	tk.Begin(time1)
 	tk.Begin(nil)
 
-	tk.Begin(TimeSchedulerProcess)
-	tk.Begin(TimeSchedulerProcess)
+	tk.Begin(time2)
+	tk.Begin(time2)
 	tk.End()
 
 	tk.End()
