@@ -15,7 +15,10 @@ package mon
 //See the License for the specific language governing permissions and
 //limitations under the License.
 //
-import "testing"
+import (
+	"math/rand"
+	"testing"
+)
 
 func TestHistogram(t *testing.T) {
 
@@ -39,5 +42,15 @@ func TestHistogram(t *testing.T) {
 	// This would be in the 2^10th bucket: (1,2,4,8,16,32,64,128,256,512,1024)
 	if h.Values()[10] != 1001 {
 		t.Fatalf("Increment in the wrong place %+v", h.Values())
+	}
+}
+
+func BenchmarkHistogram(b *testing.B) {
+	h := NewHistogram()
+
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		h.Add(rand.Float64())
 	}
 }

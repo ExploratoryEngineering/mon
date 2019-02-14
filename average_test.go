@@ -15,7 +15,10 @@ package mon
 //See the License for the specific language governing permissions and
 //limitations under the License.
 //
-import "testing"
+import (
+	"math/rand"
+	"testing"
+)
 
 func TestAverageGauge(t *testing.T) {
 	ag := NewAverageGauge(10)
@@ -56,5 +59,14 @@ func TestNoSamples(t *testing.T) {
 	right := Averages{Average: 0.0, Count: 0, Min: 0.0, Max: 0.0}
 	if av != right {
 		t.Fatalf("Zero sample failed: result = %+v", av)
+	}
+}
+
+func BenchmarkAverage(b *testing.B) {
+	ag := NewAverageGauge(100)
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		ag.Add(rand.Float64())
 	}
 }

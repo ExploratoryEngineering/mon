@@ -199,3 +199,19 @@ func TestTimeSeries(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkTimseries(b *testing.B) {
+	ts := NewTimeSeries(Hours)
+
+	t := time.Now()
+	ct := &t
+	ts.timeKeeper = func() time.Time {
+		return *ct
+	}
+
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		t = t.Add(time.Millisecond)
+		ts.Increment()
+	}
+}
